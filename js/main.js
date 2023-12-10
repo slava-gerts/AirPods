@@ -1,31 +1,38 @@
-var trap = function(height) {
-  let sum = 0
+// const permutator = (input) => {
+//   let result = [];
 
-  let maxLeft = height[0]
-  let maxRight = height[height.length - 1]
+//   const permute = (str, m = '') => {
+//     if (str.length === 0) {
+//       result.push(m)
+//     } else {
+//       for (let i = 0; i < str.length; i++) {
+//         let next = str[i];
+//         let curr = str.slice(0, i) + str.slice(i + 1);
+//         permute(curr, m + next)
+//      }
+//    }
+//  }
 
-  let leftPointer = 1
-  let rightPointer = height.length - 2
+//  permute(input)
 
-  while (leftPointer <= rightPointer) {
-      if (maxLeft <= maxRight) {
-          if (maxLeft - height[leftPointer] > 0) {
-              sum += maxLeft - height[leftPointer]
-          }
+//  return result;
+// }
 
-          maxLeft = Math.max(maxLeft, height[leftPointer])
-          leftPointer++
-      } else {
-          if (maxRight - height[rightPointer] > 0) {
-              sum += maxRight - height[rightPointer]
-          }
+// console.log(permutator('abc'))
 
-          maxRight = Math.max(maxRight, height[rightPointer])
-          rightPointer--
-      }
-  }
-
-  return sum
+var words = {
+  "zero":0, "one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, 
+  "ten":10, "eleven":11, "twelve":12, "thirteen":13, "fourteen":14, "fifteen":15, "sixteen":16, 
+  "seventeen":17, "eighteen":18, "nineteen":19, "twenty":20, "thirty":30, "forty":40, "fifty":50, 
+  "sixty":60, "seventy":70, "eighty":80, "ninety":90
 };
+var mult = { "hundred":100, "thousand":1000, "million": 1000000 };
+function parseInt(str) {
+  return str.split(/[\s-]/).reduce(function(value, word) {
+    if (words[word]) value += words[word];
+    if (mult[word]) value += mult[word] * (value % mult[word]) - (value % mult[word]);
+    return value;
+  },0);
+}
 
-console.log(trap([0,1,0,2,1,0,1,3,2,1,2,1]))
+console.log(parseInt('seven hundred eighty-three thousand nine hundred and nineteen'))
